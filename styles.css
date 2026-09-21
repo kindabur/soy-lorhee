@@ -1,0 +1,687 @@
+/* ==========================================================================
+   Vital — Soy Lorhee
+   Calistenia para mujeres
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Color */
+  --pine: #1e3a2f;
+  --pine-deep: #13251c;
+  --pine-soft: #35564a;
+  --chalk: #f1f0ea;
+  --chalk-dim: #dedcd1;
+  --rose: #b03d5b;
+  --rose-bright: #d9607f;
+  --white: #fdfdfb;
+
+  /* Type */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Newsreader", Georgia, "Times New Roman", serif;
+
+  --step--1: 0.9375rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: clamp(1.75rem, 1.4rem + 1.6vw, 2.375rem);
+  --step-4: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+  --step-hero: clamp(2.75rem, 1rem + 9.5vw, 7.5rem);
+
+  /* Space */
+  --gutter: clamp(1.25rem, 0.8rem + 2.2vw, 3rem);
+  --band: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --measure: 62ch;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--chalk);
+  color: var(--pine);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-optical-sizing: auto;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin: 0 0 1.1em;
+  max-width: var(--measure);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  /* A missing or slow image still reserves space and shows its alt text
+     rather than collapsing the layout. */
+  background-color: var(--chalk-dim);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  color: var(--pine-soft);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--rose);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--pine);
+  color: var(--chalk);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  text-decoration: none;
+  transform: translateY(-140%);
+  transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout primitives
+   -------------------------------------------------------------------------- */
+
+.shell {
+  width: min(100% - (var(--gutter) * 2), 78rem);
+  margin-inline: auto;
+}
+
+.band {
+  padding-block: var(--band);
+}
+
+.band-rule {
+  border-top: 1px solid var(--chalk-dim);
+}
+
+.band-dark {
+  background-color: var(--pine);
+  color: var(--chalk);
+}
+
+/* Section heading + intro, shared across sections. */
+.section-head {
+  display: grid;
+  gap: clamp(1.25rem, 0.5rem + 3vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+
+@media (min-width: 52rem) {
+  .section-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: end;
+  }
+}
+
+.section-title {
+  font-size: var(--step-4);
+  font-variation-settings: "wdth" 112;
+  text-wrap: balance;
+}
+
+.section-lede {
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--pine-soft);
+}
+
+.band-dark .section-lede {
+  color: var(--chalk-dim);
+}
+
+/* --------------------------------------------------------------------------
+   4. Buttons & links
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-block;
+  padding: 0.95rem 2.1rem;
+  border: 1px solid transparent;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s var(--ease), color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+
+.btn-primary {
+  background-color: var(--rose);
+  border-color: var(--rose);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--pine);
+  border-color: var(--pine);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border-color: currentColor;
+  color: inherit;
+}
+
+.btn-secondary:hover {
+  background-color: var(--pine);
+  border-color: var(--pine);
+  color: var(--chalk);
+}
+
+.band-dark .btn-secondary:hover {
+  background-color: var(--chalk);
+  border-color: var(--chalk);
+  color: var(--pine);
+}
+
+.link-quiet {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: color 0.18s var(--ease);
+}
+
+.link-quiet:hover {
+  color: var(--rose);
+}
+
+/* --------------------------------------------------------------------------
+   5. Header
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--chalk);
+  border-bottom: 1px solid var(--chalk-dim);
+}
+
+.notice {
+  background-color: var(--pine);
+  color: var(--chalk);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+}
+
+.notice-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.6rem;
+}
+
+.notice p {
+  margin: 0;
+  max-width: none;
+}
+
+.notice a {
+  color: var(--chalk);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rose-bright);
+  padding-bottom: 1px;
+}
+
+.notice a:hover {
+  color: var(--rose-bright);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: 1.1rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+}
+
+.nav-list a {
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.18s var(--ease);
+}
+
+.nav-list a:hover {
+  border-bottom-color: var(--rose);
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero — the one bold move
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding-block: clamp(3.5rem, 2rem + 7vw, 8rem) var(--band);
+}
+
+.hero-title {
+  font-size: var(--step-hero);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+}
+
+.hero-title span {
+  display: block;
+  font-variation-settings: "wdth" 125;
+}
+
+/* The line extends into its full width on load, the way a body extends
+   into a hold. One moment, once, then stillness. */
+.hero-title .extend {
+  font-variation-settings: "wdth" 62;
+  animation: extend 1.5s var(--ease) 0.15s forwards;
+}
+
+.hero-title .extend-late {
+  animation-delay: 0.3s;
+}
+
+@keyframes extend {
+  to {
+    font-variation-settings: "wdth" 125;
+  }
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  align-items: center;
+}
+
+.hero-lede {
+  font-size: var(--step-2);
+  line-height: 1.4;
+  max-width: 24ch;
+  color: var(--pine-soft);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   7. About
+   -------------------------------------------------------------------------- */
+
+.about-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 52rem) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+.about-figure {
+  margin: 0;
+}
+
+.about-figure img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.about-body p {
+  font-size: var(--step-1);
+  line-height: 1.6;
+}
+
+.about-body .btn-secondary {
+  margin-top: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. Classes — bands, not cards
+   -------------------------------------------------------------------------- */
+
+.class-list {
+  border-top: 1px solid var(--pine-soft);
+}
+
+.class-item {
+  display: grid;
+  gap: 0.5rem 3rem;
+  padding-block: clamp(1.75rem, 1rem + 2.5vw, 2.75rem);
+  border-bottom: 1px solid var(--pine-soft);
+}
+
+@media (min-width: 52rem) {
+  .class-item {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    align-items: baseline;
+  }
+}
+
+.class-name {
+  font-size: var(--step-3);
+  font-variation-settings: "wdth" 100;
+  text-wrap: balance;
+}
+
+.class-item p {
+  margin: 0;
+  color: var(--chalk-dim);
+  font-size: var(--step-1);
+  line-height: 1.55;
+}
+
+.class-foot {
+  margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+/* --------------------------------------------------------------------------
+   9. Instructor — staggered, not a card row
+   -------------------------------------------------------------------------- */
+
+.pillars {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 3rem);
+  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+@media (min-width: 46rem) {
+  .pillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  /* Vertical stagger echoes progression — each step sits a little higher. */
+  .pillar:nth-child(2) {
+    margin-top: 3.5rem;
+  }
+
+  .pillar:nth-child(3) {
+    margin-top: 7rem;
+  }
+}
+
+.pillar img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  margin-bottom: 1.25rem;
+}
+
+.pillar h3 {
+  font-size: var(--step-2);
+  font-variation-settings: "wdth" 100;
+  margin-bottom: 0.6rem;
+}
+
+.pillar p {
+  color: var(--pine-soft);
+}
+
+.instructor-foot {
+  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+/* --------------------------------------------------------------------------
+   10. Features
+   -------------------------------------------------------------------------- */
+
+.features-list {
+  display: grid;
+  gap: 1px;
+  background-color: var(--chalk-dim);
+  border-block: 1px solid var(--chalk-dim);
+}
+
+@media (min-width: 40rem) {
+  .features-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .features-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.features-list li {
+  background-color: var(--chalk);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem) clamp(1rem, 0.5rem + 2vw, 2rem);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 500;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+/* --------------------------------------------------------------------------
+   11. Testimonials — pull quotes
+   -------------------------------------------------------------------------- */
+
+.quotes {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+}
+
+@media (min-width: 58rem) {
+  .quotes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.quote {
+  margin: 0;
+  border-top: 2px solid var(--rose);
+  padding-top: 1.5rem;
+}
+
+.quote p {
+  font-size: var(--step-3);
+  font-style: italic;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.quote cite {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--pine-soft);
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  background-color: var(--pine-deep);
+  color: var(--chalk);
+  padding-block: var(--band) 2.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 52rem) {
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.newsletter-title {
+  font-size: var(--step-3);
+  font-variation-settings: "wdth" 105;
+  margin-bottom: 0.75rem;
+}
+
+.newsletter p {
+  color: var(--chalk-dim);
+  margin-bottom: 1.75rem;
+}
+
+.newsletter-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.newsletter-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  margin-bottom: 0.5rem;
+  color: var(--chalk-dim);
+}
+
+.newsletter input {
+  flex: 1 1 15rem;
+  min-width: 0;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--pine-soft);
+  background-color: transparent;
+  color: var(--chalk);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+}
+
+.newsletter input::placeholder {
+  color: var(--pine-soft);
+}
+
+.newsletter input:focus-visible {
+  outline-color: var(--rose-bright);
+}
+
+.footer-meta {
+  margin-top: var(--band);
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--pine-soft);
+  font-size: var(--step--1);
+  color: var(--chalk-dim);
+}
+
+.footer-meta p {
+  margin: 0;
+  max-width: none;
+}
+
+/* --------------------------------------------------------------------------
+   13. Reduced motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-title .extend {
+    font-variation-settings: "wdth" 125;
+  }
+}
